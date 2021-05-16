@@ -5,17 +5,43 @@ RSpec.describe IrohaSort::Comparator do
 
   describe "#compare" do
     let(:comparator){ IrohaSort::Comparator.new(iroha) }
+    subject { comparator.compare(a, b) }
 
-    it "第1引数と第2引数が同じなら0" do
-      expect(comparator.compare('い', 'い')).to eq(0)
+    context "1文字" do
+      context "第1引数と第2引数が同じなら" do
+        let(:a){'い'}; let(:b){'い'}
+        it { is_expected.to eq 0 }
+      end
+
+      context "第1引数が大きいなら" do
+        let(:a){'ろ'}; let(:b){'い'}
+        it { is_expected.to eq 1 }
+      end
+
+      context "第2引数が大きいなら" do
+        let(:a){'い'}; let(:b){'ろ'}
+        it { is_expected.to eq -1 }
+      end
     end
 
-    it "第1引数が大きいなら1" do
-      expect(comparator.compare('い', 'ろ')).to eq(-1)
-    end
+    context "2文字以上" do
+      context "同じ文字列" do
+        let(:a){'いろはにおへと'}
+        let(:b){'いろはにおへと'}
+        it { is_expected.to eq 0 }
+      end
 
-    it "第2引数が大きいなら-1" do
-      expect(comparator.compare('ろ', 'い')).to eq(1)
-    end
+      context "先頭部分一致は長い方が大きい" do
+        let(:a){'いろは'}
+        let(:b){'いろはにおへと'}
+        it { is_expected.to eq -1 }
+      end
+
+      context "長さが違っても先頭から比較" do
+        let(:a){'ろいは'}
+        let(:b){'いろはにおへと'}
+        it { is_expected.to eq 1 }
+      end
+    end 
   end
 end
