@@ -32,13 +32,13 @@ targets.sort!{|a, b| iroha_comparator.compare(a, b)}
 ### 開発環境
 
 ```
-$ docker build -t iroha_sort .
+$ docker-compose build
 ```
 
 ### テスト実行
 
 ```
-$ docker run -v "$PWD":/usr/src/app -w /usr/src/app iroha_sort bundle exec rspec
+$ docker run iroha_sort bundle exec rspec
 ```
 
 ## Contributing

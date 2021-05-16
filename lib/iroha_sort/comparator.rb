@@ -7,8 +7,14 @@ module IrohaSort
     def compare(a, b)
       res= 0
       ary_a, ary_b= a.chars, b.chars
-      size= [ary_a.length, ary_b.length].min
 
+      (ary_a+ ary_b).each do |char|
+        unless @iroha.index(char)
+          return nil
+        end
+      end
+
+      size= [ary_a.length, ary_b.length].min
       size.times do |i|
         res= @iroha.index(ary_a[i]) <=> @iroha.index(ary_b[i])
         break unless res==0

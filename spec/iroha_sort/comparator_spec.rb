@@ -42,6 +42,16 @@ RSpec.describe IrohaSort::Comparator do
         let(:b){'いろはにおへと'}
         it { is_expected.to eq 1 }
       end
-    end 
+    end
+
+    context "空文字列は一番小さい" do
+      let(:a){''}; let(:b){'す'}
+      it { is_expected.to eq -1 }
+    end
+
+    context "いろはにない文字があるなら" do
+      let(:a){'ん'}; let(:b){''}
+      it { is_expected.to eq nil }
+    end
   end
 end
