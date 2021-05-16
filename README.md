@@ -20,11 +20,26 @@ Or install it yourself as:
 
 ## Usage
 
-
+```ruby
+iroha= "いろはにほへと ちりぬるを わかよたれそ つねならむ うゐのおくやま けふこえて あさきゆめみし ゑひもせす".gsub(/\s/,'')
+iroha_comparator= IrohaSort::Comparator.new(iroha)
+targets= ["いさわ", "かわかみ", "かわむら", "すかい", "ふくら", "やまもと", "わたなへ"]
+targets.sort!{|a, b| iroha_comparator.compare(a, b)}
+```
 
 ## Development
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+### 開発環境
+
+```
+$ docker build -t iroha_sort .
+```
+
+### テスト実行
+
+```
+$ docker run -v "$PWD":/usr/src/app -w /usr/src/app iroha_sort bundle exec rspec
+```
 
 ## Contributing
 
