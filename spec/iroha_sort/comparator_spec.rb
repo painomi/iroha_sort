@@ -3,8 +3,8 @@ RSpec.describe IrohaSort::Comparator do
 
   it { expect(IrohaSort::Comparator.new(iroha)).to be_an_instance_of(IrohaSort::Comparator) }
 
+  let(:comparator){ IrohaSort::Comparator.new(iroha) }
   describe "#compare" do
-    let(:comparator){ IrohaSort::Comparator.new(iroha) }
     subject { comparator.compare(a, b) }
 
     context "1文字" do
@@ -52,6 +52,20 @@ RSpec.describe IrohaSort::Comparator do
     context "いろはにない文字があるなら" do
       let(:a){'ん'}; let(:b){''}
       it { is_expected.to eq nil }
+    end
+  end
+
+  describe "#comparable?" do
+    subject { comparator.comparable?(str) }
+
+    context "いろはにある文字だけなら" do
+      let(:str){ 'いろは' }
+      it { is_expected.to be_truthy }
+    end
+
+    context "いろはにない文字があったら" do
+      let(:str){ 'ABC' }
+      it { is_expected.to be_falsy }
     end
   end
 end
