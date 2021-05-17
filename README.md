@@ -22,9 +22,9 @@ Or install it yourself as:
 
 ```ruby
 iroha= "いろはにほへと ちりぬるを わかよたれそ つねならむ うゐのおくやま けふこえて あさきゆめみし ゑひもせす".gsub(/\s/,'')
-iroha_comparator= IrohaSort::Comparator.new(iroha)
 targets= ["いさわ", "かわかみ", "かわむら", "すかい", "ふくら", "やまもと", "わたなへ"]
-targets.sort!{|a, b| iroha_comparator.compare(a, b)}
+IrohaSort.sort(iroha, targets)
+#=> ["いさわ", "わたなへ", "かわかみ", "かわむら", "やまもと", "ふくら", "すかい"]
 ```
 
 ## Development
